@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="VirtualBox虚拟机问题集锦最近学校实验众多，并且基本全都要求使用Linux系统。Linux系统确实优雅，但是仍旧不敢将其作为主力机来使用，总怕滚系统滚翻了电脑变砖。这里就配置VirtualBox上的虚拟机遇到的一些问题进行记录 1.VirtualBox当中虚拟机分辨率的调节主要参考博文：Virtual Box 中的虚拟系统无法调整分辨率（无法自适应窗口大小） - sinatJ - 博客园">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VirtualBox虚拟机问题集锦">
+<meta property="og:url" content="http://example.com/2022/03/16/VirtualBox%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/index.html">
+<meta property="og:site_name" content="Pawx2&#39;s Studio">
+<meta property="og:description" content="VirtualBox虚拟机问题集锦最近学校实验众多，并且基本全都要求使用Linux系统。Linux系统确实优雅，但是仍旧不敢将其作为主力机来使用，总怕滚系统滚翻了电脑变砖。这里就配置VirtualBox上的虚拟机遇到的一些问题进行记录 1.VirtualBox当中虚拟机分辨率的调节主要参考博文：Virtual Box 中的虚拟系统无法调整分辨率（无法自适应窗口大小） - sinatJ - 博客园">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/03/16/VirtualBox%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/image-20220316163800153.png">
+<meta property="og:image" content="http://example.com/2022/03/16/VirtualBox%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/image-20220316163945393.png">
+<meta property="article:published_time" content="2022-03-16T08:24:58.000Z">
+<meta property="article:modified_time" content="2022-03-16T09:45:58.503Z">
+<meta property="article:author" content="pawx2">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/16/VirtualBox%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/image-20220316163800153.png">
+
+<link rel="canonical" href="http://example.com/2022/03/16/VirtualBox%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>VirtualBox虚拟机问题集锦 | Pawx2's Studio</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pawx2's Studio</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">None</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/16/VirtualBox%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="pawx2">
+      <meta itemprop="description" content="Peace comes from within">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pawx2's Studio">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VirtualBox虚拟机问题集锦
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-16 16:24:58 / Modified: 17:45:58" itemprop="dateCreated datePublished" datetime="2022-03-16T16:24:58+08:00">2022-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/just-for-fun/" itemprop="url" rel="index"><span itemprop="name">just for fun</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="VirtualBox虚拟机问题集锦"><a href="#VirtualBox虚拟机问题集锦" class="headerlink" title="VirtualBox虚拟机问题集锦"></a><strong>VirtualBox虚拟机问题集锦</strong></h1><p>最近学校实验众多，并且基本全都要求使用Linux系统。Linux系统确实优雅，但是仍旧不敢将其作为主力机来使用，总怕滚系统滚翻了电脑变砖。<br>这里就配置VirtualBox上的虚拟机遇到的一些问题进行记录</p>
+<h2 id="1-VirtualBox当中虚拟机分辨率的调节"><a href="#1-VirtualBox当中虚拟机分辨率的调节" class="headerlink" title="1.VirtualBox当中虚拟机分辨率的调节"></a>1.VirtualBox当中虚拟机分辨率的调节</h2><p>主要参考博文：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zishu/p/13574177.html">Virtual Box 中的虚拟系统无法调整分辨率（无法自适应窗口大小） - sinatJ - 博客园 (cnblogs.com)</a></p>
+<p>一开始大多都会误认为VirtualBox当中虚拟机分辨率自动调节是通过安装虚拟机增强工具来完成的，但是自己安装了三个虚拟机都无效，最后发现如下规律：<br>①VirtualBox增强工具提供共享剪切板、文件共享等功能，对于屏幕分辨率或许并不提供自适应功能；<br>②可以直接通过VirtualBox软件本身来对虚拟机分辨率进行调节，具体方法为：菜单栏-&gt;视图-&gt;虚拟显示屏-&gt;重设为1920x1080之后再在同级目录下调整缩放比例至合适范围</p>
+<img src="/2022/03/16/VirtualBox%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/image-20220316163800153.png" alt="image-20220316163800153" style="zoom:80%;">
+
+<h2 id="2-虚拟机当中共享文件夹的使用"><a href="#2-虚拟机当中共享文件夹的使用" class="headerlink" title="2.虚拟机当中共享文件夹的使用"></a>2.虚拟机当中共享文件夹的使用</h2><p>网上大多教程都是手动挂载，步骤繁琐并且容易出错，这里实际上可以直接在虚拟机设置-&gt;共享文件夹-&gt;添加共享文件夹-&gt;自动挂载中进行设置：</p>
+<img src="/2022/03/16/VirtualBox%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/image-20220316163945393.png" alt="image-20220316163945393" style="zoom:80%;">
+
+<h2 id="3-Ubuntu更新后fcitx输入法可以自由切换中英文，但是无法输出中文"><a href="#3-Ubuntu更新后fcitx输入法可以自由切换中英文，但是无法输出中文" class="headerlink" title="3.Ubuntu更新后fcitx输入法可以自由切换中英文，但是无法输出中文"></a>3.Ubuntu更新后fcitx输入法可以自由切换中英文，但是无法输出中文</h2><p>这里有两个解决办法：<br>①在Ubuntu设置当中，先取消中文语言源，将相关语言包卸载，而后再重新添加中文语言源，重新安装相关语言包及输入法包，最后再输入源中添加中文-智能拼音进行解决；<br>②一个更为稳妥的办法在我花费大量时间后找到：无法输入中文是因为fcitx自身有问题，此时将fcitx完全卸载，之后为iBus添加拼音输入法相关的包，最后指定输入法为iBus即可。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/20/Leetcode281%E5%9C%BA%E5%91%A8%E8%B5%9B%E5%B0%8F%E7%BB%93/" rel="prev" title="Leetcode281场周赛小结">
+      <i class="fa fa-chevron-left"></i> Leetcode281场周赛小结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/16/Markdown%E8%A1%A8%E6%83%85%E5%A4%A7%E5%85%A8/" rel="next" title="Markdown表情大全">
+      Markdown表情大全 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VirtualBox%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6"><span class="nav-number">1.</span> <span class="nav-text">VirtualBox虚拟机问题集锦</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-VirtualBox%E5%BD%93%E4%B8%AD%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%86%E8%BE%A8%E7%8E%87%E7%9A%84%E8%B0%83%E8%8A%82"><span class="nav-number">1.1.</span> <span class="nav-text">1.VirtualBox当中虚拟机分辨率的调节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%BD%93%E4%B8%AD%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">2.虚拟机当中共享文件夹的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Ubuntu%E6%9B%B4%E6%96%B0%E5%90%8Efcitx%E8%BE%93%E5%85%A5%E6%B3%95%E5%8F%AF%E4%BB%A5%E8%87%AA%E7%94%B1%E5%88%87%E6%8D%A2%E4%B8%AD%E8%8B%B1%E6%96%87%EF%BC%8C%E4%BD%86%E6%98%AF%E6%97%A0%E6%B3%95%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87"><span class="nav-number">1.3.</span> <span class="nav-text">3.Ubuntu更新后fcitx输入法可以自由切换中英文，但是无法输出中文</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pawx2"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">pawx2</p>
+  <div class="site-description" itemprop="description">Peace comes from within</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pawx2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pawx2" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/hibna" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;hibna" rel="noopener" target="_blank">Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pawx2</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":120,"height":240},"mobile":{"show":true},"log":false});</script></body>
+</html>

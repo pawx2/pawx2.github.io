@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="project-冬奥纪念品交易平台(信息管理系统衍生)该项目分为可在Linux环境下编译运行的Console版本，以及可在Windows下编译运行的Qt版本（你问我为什么Qt版本不也在Linux下？那是因为我的Windows下好巧不巧有个Qt，个人懒得配环境（√我是懒狗一条😎），所以就顺理成章在Windows下把Qt版本写咯） 项目需求-目录层级墙裂建议按照目录层级（类似列表的形式进行实现，当完">
+<meta property="og:type" content="article">
+<meta property="og:title" content="project-冬奥纪念品交易平台(信息管理系统衍生)">
+<meta property="og:url" content="http://example.com/2022/03/22/project-%E5%86%AC%E5%A5%A5%E7%BA%AA%E5%BF%B5%E5%93%81%E4%BA%A4%E6%98%93%E5%B9%B3%E5%8F%B0-%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A1%8D%E7%94%9F/index.html">
+<meta property="og:site_name" content="Pawx2&#39;s Studio">
+<meta property="og:description" content="project-冬奥纪念品交易平台(信息管理系统衍生)该项目分为可在Linux环境下编译运行的Console版本，以及可在Windows下编译运行的Qt版本（你问我为什么Qt版本不也在Linux下？那是因为我的Windows下好巧不巧有个Qt，个人懒得配环境（√我是懒狗一条😎），所以就顺理成章在Windows下把Qt版本写咯） 项目需求-目录层级墙裂建议按照目录层级（类似列表的形式进行实现，当完">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/03/22/project-%E5%86%AC%E5%A5%A5%E7%BA%AA%E5%BF%B5%E5%93%81%E4%BA%A4%E6%98%93%E5%B9%B3%E5%8F%B0-%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A1%8D%E7%94%9F/Inked2022-03-23_LI.jpg">
+<meta property="article:published_time" content="2022-03-22T13:17:54.000Z">
+<meta property="article:modified_time" content="2022-04-03T00:33:24.807Z">
+<meta property="article:author" content="pawx2">
+<meta property="article:tag" content="project">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Qt">
+<meta property="article:tag" content="Tutorial">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/22/project-%E5%86%AC%E5%A5%A5%E7%BA%AA%E5%BF%B5%E5%93%81%E4%BA%A4%E6%98%93%E5%B9%B3%E5%8F%B0-%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A1%8D%E7%94%9F/Inked2022-03-23_LI.jpg">
+
+<link rel="canonical" href="http://example.com/2022/03/22/project-%E5%86%AC%E5%A5%A5%E7%BA%AA%E5%BF%B5%E5%93%81%E4%BA%A4%E6%98%93%E5%B9%B3%E5%8F%B0-%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A1%8D%E7%94%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>project-冬奥纪念品交易平台(信息管理系统衍生) | Pawx2's Studio</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pawx2's Studio</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">None</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/22/project-%E5%86%AC%E5%A5%A5%E7%BA%AA%E5%BF%B5%E5%93%81%E4%BA%A4%E6%98%93%E5%B9%B3%E5%8F%B0-%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A1%8D%E7%94%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="pawx2">
+      <meta itemprop="description" content="Peace comes from within">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pawx2's Studio">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          project-冬奥纪念品交易平台(信息管理系统衍生)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-22 21:17:54" itemprop="dateCreated datePublished" datetime="2022-03-22T21:17:54+08:00">2022-03-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-03 08:33:24" itemprop="dateModified" datetime="2022-04-03T08:33:24+08:00">2022-04-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/projects/" itemprop="url" rel="index"><span itemprop="name">projects</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="project-冬奥纪念品交易平台-信息管理系统衍生"><a href="#project-冬奥纪念品交易平台-信息管理系统衍生" class="headerlink" title="project-冬奥纪念品交易平台(信息管理系统衍生)"></a><strong>project-冬奥纪念品交易平台(信息管理系统衍生)</strong></h1><p>该项目分为可在Linux环境下编译运行的Console版本，以及可在Windows下编译运行的Qt版本（你问我为什么Qt版本不也在Linux下？那是因为我的Windows下好巧不巧有个Qt，个人懒得配环境（√我是懒狗一条😎），所以就顺理成章在Windows下把Qt版本写咯）</p>
+<h2 id="项目需求-目录层级"><a href="#项目需求-目录层级" class="headerlink" title="项目需求-目录层级"></a>项目需求-目录层级</h2><p>墙裂建议按照目录层级（类似列表的形式进行实现，当完成一个功能后对相应表项进行标记以记录开发进度）</p>
+<p><strong>WOTS目录层级</strong></p>
+<p>主菜单：1.管理员登录；2.用户注册；3.用户登录；4.退出程序<br>管理员主菜单：1.查看所有商品；2.搜索商品；3.下架商品；4.查看所有订单；5.查看所有用户；6.封禁用户；7.注销</p>
+<blockquote>
+<p>查看所有商品：商品ID；商品名称；价格；数量；上架时间；卖家ID；商品状态<br>搜索商品-&gt;请输入商品名称-&gt;<br>下架商品-&gt;请输入要下架商品的ID-&gt;<br>查看所有订单：订单ID；商品ID；交易单价；交易数量；交易时间；卖家ID；买家ID<br>查看所有用户：用户ID；用户名；联系方式；地址；钱包余额；用户状态<br>封禁用户-&gt;请输入要封禁用户的ID</p>
+</blockquote>
+<p>用户主菜单：1.我是买家；2.我是卖家；3.个人信息管理；4.注销登录<br>买家主菜单：1.查看商品列表；2.购买商品；3.搜索商品；4.查看历史订单；5.查看商品详细信息；6.返回用户主界面</p>
+<blockquote>
+<p>查看商品列表（非下架）：商品ID；商品名称；价格；数量；上架时间；卖家ID<br>购买商品：根据ID选择购买商品；指定购买数量；确认购买<br>购买商品后显示订单的详细信息：订单ID，商品ID,买家ID，卖家ID，商品单价，购买数量，商品总价，交易时间，交易状态，您的余额<br>搜索商品：根据商品名称进行搜索<br>查看历史订单（仅自己）：订单ID；商品ID；交易单价；交易数量；交易时间；卖家ID<br>查看商品详细信息：指定商品ID进行查看</p>
+</blockquote>
+<p>卖家主菜单：1.发布商品；2.查看发布商品；3.修改商品信息；4.下架商品；5.查看历史订单；6.返回用户主界面</p>
+<blockquote>
+<p>发布商品：商品名称；商品价格；商品数量；商品描述；（确认信息无误后发布）<br>查看发布商品：商品ID；商品名称；价格；数量；上架时间；商品状态<br>修改商品信息：通过ID选择要修改的商品；价格；描述（遗留问题，与其它的查看功能相同，此处也使用了QListWidget，单选和多选设置却并未添加）<br>下架商品：通过ID选择要下架的商品<br>查看历史订单：订单ID；商品ID；交易单价；交易数量；交易时间；买家ID</p>
+</blockquote>
+<p>个人信息菜单：1.查看信息；2.修改信息；3.充值；4.返回用户主界面</p>
+<blockquote>
+<p>查看信息：用户ID；用户姓名；联系方式；地址；余额；（余额初始表达式，余额简化表达式）<br>修改信息：用户名；联系方式；地址<br>充值：输入重置金额；确认充值</p>
+</blockquote>
+<p>移植并开启MYSQL<br>移植并开启Calculator</p>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p>欸嘿，还没验收呢，不放链接嗷😎（验收完就放，如果我记得的话…😛<br>放链接了：<br><a target="_blank" rel="noopener" href="https://gitee.com/hibna/APD_Winter-Olympics-Trading-System">APD_冬奥会交易系统: APD proj1 (gitee.com)</a></p>
+<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><p>Ubuntu18（是个Linux都能开发，当然最好Ubuntu，版本高点没关系，反正我没试过🤨</p>
+<h2 id="整体思路"><a href="#整体思路" class="headerlink" title="整体思路"></a>整体思路</h2><p>看到整个项目要求的时候，一堆的菜单和功能总是令人凌乱，不知道从何下手，这里就整体思路来进行一个简要说明：<br>其实整个项目没有想象中的那么庞大，我们不妨将该项目一分为三：<br>一、P2P交易系统（就是学生信息管理系统变体）<br>二、MYSQL，自实现的数据库，自实现指令生成与解析（字符串操作，对P2P交易系统的某些操作追加一层封装）<br>三、Calculator表达式计算器及合并同类项功能（支持括号及四则运算，输入一个字符串解析计算出结果）<br>那么之后我们就可以很清晰的知道：<strong>P2P交易系统是整个项目的主体核心，而MYSQL以及表达式计算器是可以基于P2P交易系统的基础上作为附加功能进行追加的</strong>。那么我们的开发流程就变成了：完成P2P交易系统-&gt;追加MYSQL实现并对P2P交易系统的某些功能追加一层封装-&gt;完成表达式计算器，并将其追加到P2P交易系统。<br>另外，这里就三个部分实现的核心进行简短说明：<br>一、P2P交易系统：直接硬写逻辑代码即可，没有任何需要动脑的地方；<br>二、MYSQL指令自实现与解析：使用正则表达式以及STL string类中的相关方法；<br>三、表达式计算器：使用BNF范式，递归构造计算树</p>
+<p>下面就在了解文件结构之后，开始我们本项目Console版本吧！😏<br>另外，我墙裂建议你使用Vscode作为代码编辑器，并且安装<code>ToDoTree</code>插件，配合爷( •̀ ω •́ )y写的注释简直不要太好用！（安装完成后你便可以在Vscode左侧栏中看到一个打勾勾的小树，点进去，会有惊喜！</p>
+<h2 id="文件结构说明"><a href="#文件结构说明" class="headerlink" title="文件结构说明"></a>文件结构说明</h2><p>注意，这里的文件结构是经过排序的，该顺序实际上也就是我们依次着重开发的顺序，可以参照此顺序来估量自己的进度嗷😃。<br>另：<code>General.h</code>直接给出现成的，注释什么的啥都有，自己研究去吧！😛</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">General.h			//全局头文件，用于引用标准库等</span><br><span class="line">main.cpp			//程序入口</span><br><span class="line">System.cpp			//顶层系统类</span><br><span class="line">System.h</span><br><span class="line">Window.cpp			//窗口类</span><br><span class="line">Window.h</span><br><span class="line">IOManager.cpp		//输入输出校验类</span><br><span class="line">IOManager.h</span><br><span class="line">Usr.cpp				//用户类</span><br><span class="line">Usr.h</span><br><span class="line">Merchandise.cpp		//商品类</span><br><span class="line">Merchandise.h</span><br><span class="line">OrderForm.cpp		//订单类</span><br><span class="line">OrderForm.h</span><br><span class="line">Recharge.cpp		//充值记录类</span><br><span class="line">Recharge.h</span><br><span class="line">Calculator.cpp		//表达式计算器类</span><br><span class="line">Calculator.h</span><br><span class="line">SqlItem.cpp			//MYSQL自实现数据库类</span><br><span class="line">SqlItem.h</span><br></pre></td></tr></table></figure>
+
+<h2 id="项目开发Part1-P2P交易系统"><a href="#项目开发Part1-P2P交易系统" class="headerlink" title="项目开发Part1.P2P交易系统"></a>项目开发Part1.P2P交易系统</h2><p>首先我们来开发整个项目的核心，即P2P交易系统，在这个部分，我们就可以实现整个项目的所有功能了，而之后的两个功能无非就是just for fun了！（我才不会告诉你这纯纯就是原本三个毫不相干的项目，生硬地缝合在一起，自己麻烦自己😎，对此我只想说：焯！</p>
+<h3 id="Step1-自顶向下"><a href="#Step1-自顶向下" class="headerlink" title="Step1.自顶向下"></a>Step1.自顶向下</h3><h4 id="0x01-什么是tm的系统？哦-，原来这tm的是系统啊！"><a href="#0x01-什么是tm的系统？哦-，原来这tm的是系统啊！" class="headerlink" title="0x01 什么是tm的系统？哦~，原来这tm的是系统啊！"></a>0x01 什么是tm的系统？哦~，原来这tm的是系统啊！</h4><p>说到系统，你想到了什么？我想到的就是一个系统，嗯，它就是一个对象，而本项目的程序运行又是什么呢，无非也就是一个叫做“系统”的对象在运行。</p>
+<p>:white_check_mark:打开我们的<code>main.cpp</code>在<code>TODO1</code>中用C语言写下如下操作：（当然，你也可以在真正完成了系统类后再进行到这一步</p>
+<blockquote>
+<p>一、自己new一个名为<code>sys</code>的对象，该对象为<code>System</code>类型（单身🐕没有对象？自己new一个就好了😁;<br>二、调用该对象名为<code>exec</code>的方法，虽然暂时没有，但我们将在下一步完成它；<br>三、删除该对象；<br>四、别忘了main低下要<code>return 0;</code></p>
+</blockquote>
+<h4 id="0x02-完成我们的系统"><a href="#0x02-完成我们的系统" class="headerlink" title="0x02 完成我们的系统"></a>0x02 完成我们的系统</h4><p>现在，我们来写<code>System</code>类，完成我们的名为“系统”的顶层模块：<br>:white_check_mark:打开<code>System.h</code>在这里有一个TODO2，我们需要为系统类添加一些属性和方法：</p>
+<blockquote>
+<p>属性：<br>:red_circle:<code>bool</code>类型，退出引脚，还记得我们前一步写的exec吗，这实际上是一个循环，每次循环我们接收一个用户的操作，然后对用户的操作进行回应，但是当用户要退出循环了怎么办？我们在每次循环时都会检查这个退出引脚，如果其是<code>true</code>那么就跳出循环，而后系统对象被删除，程序结束<br>:red_circle:<code>bool</code>类型，更新引脚，console程序最为麻烦的一点就是：写界面显示麻烦的一匹，因此我们用一个更新引脚，同样每次循环检查一次<br>:red_circle:<code>bool</code>类型，管理员是否活跃<br>:red_circle:<code>Usr*</code>类型，指示当前在系统中登录进来的用户<br>:red_circle:元素为<code>Window*</code>类型的一个栈，这就是我们系统的窗口栈</p>
+</blockquote>
+<blockquote>
+<p>方法：<br>:red_circle:返回值为<code>void</code>的<code>exec</code>，这就是我们系统的消息循环，我们的程序实际上也就是依靠该消息循环跑起来的<br>:red_circle:重写类的构造和析构函数</p>
+</blockquote>
+<p>这里对窗口栈来进行简短说明：<br>如果是面向过程编程，那么对于本项目的需求会有一大堆的菜单和目录层级，很直观的想法就是一个菜单对应于一个函数，进入多层菜单后就是进入函数中的函数…<br>这样当然也是直观且可行的办法，但是既然使用了OOP何不采取一些更加直观的方法？我们利用系统对象维护一个窗口栈，我们所在的窗口就是该窗口栈顶部的元素，而当我们要进入一个窗口，那么就根据栈顶窗口的分支来new一个新的窗口对象压入到栈中，这样我们当前所在窗口就变成了要进入的新窗口；而当我们要退出的时候，就将栈顶部的窗口弹出并且释放，这样就栈顶就又变成了上一级的窗口，怎么样，妙不妙？😛</p>
+<p>:white_check_mark:仔细阅读Window类的接口及实现（我认真的，其实不是我懒得写了x</p>
+<p>:white_check_mark:打开<code>System.cpp</code>我们现在来初步实现一下<code>System</code>类的方法</p>
+<blockquote>
+<p>对于构造函数，我们要完成TODO3：<br>一、设置好退出引脚，不至于刚启动就退出；<br>二、将当前系统在线的管理员和用户都清空；<br>三、使用<code>Window* p = new Window(MAIN_MENU)</code>来初始化一个主菜单窗口，憋问为什么，CV把这句粘上去就好了，当然如果你看了框架代码，那么一切都很显然；<br>四、将我们刚刚创建好的窗口压入到系统窗口栈当中；</p>
+</blockquote>
+<blockquote>
+<p>对于<code>exec</code>函数，我们依照如下逻辑实现TODO4：<br>一、初始展示主菜单，调用<code>show</code>方法<br>二、一个循环，每次循环检查退出引脚；<br>三、在循环之内：进入消息分支，获取下一个窗口以及是否退出和是否更新显示（调用栈顶窗口的<code>branches方法</code><br>四、如果进入下一个窗口则new新窗口压入栈中；如果退出则将栈顶窗口弹出并释放；<br>五、如果更新显示则调用栈顶窗口的<code>show</code>方法，而后将更新显示复位为<code>false</code></p>
+</blockquote>
+<h4 id="0x03-完成Window类"><a href="#0x03-完成Window类" class="headerlink" title="0x03 完成Window类"></a>0x03 完成Window类</h4><p>:white_check_mark:仔细看看<code>Window.h</code>当中的各个接口，而后进入<code>Window.cpp</code>当中进行实现</p>
+<blockquote>
+<p>完成全局变量，即TODO5：<br>参考已有实例填写菜单栏显示数据以及关乎用户选择的正则表达式</p>
+</blockquote>
+<blockquote>
+<p>完成用于显示菜单栏的<code>show</code>方法以及消息分支<code>branches</code>，即TODO6：<br>一、注意<code>show</code>方法的实现过程，我们已经在<code>IOManager.h</code>当中提供了如下宏以供直接使用：<br><code>CLEAR_SCREEN</code><br><code>DRAW_DOUBLE_LINE</code><br><code>OUTPUT</code><br>二、注意<code>branches</code>的实现，我们已经在<code>Window.h</code>中给出了相关接口，你所要作的就是根据当前窗口类型利用选择语句跳转到对应的消息分支调用相应函数即可。</p>
+</blockquote>
+<h3 id="Step2-完成基础类（用户、商品、订单）"><a href="#Step2-完成基础类（用户、商品、订单）" class="headerlink" title="Step2.完成基础类（用户、商品、订单）"></a>Step2.完成基础类（用户、商品、订单）</h3><p>之所以在这一步当中完成用户、商品、订单，是由于之后的所有功能都离不开这三个基本的类。当完成了基础的、最常用的类之后，我们再来开发更加高层的功能就能够非常顺利。</p>
+<h4 id="0x01-基本完成用户类及部分方法"><a href="#0x01-基本完成用户类及部分方法" class="headerlink" title="0x01 基本完成用户类及部分方法"></a>0x01 基本完成用户类及部分方法</h4><p>在这一部分，我们需要基本完成用户类并完成相关方法，请注意<code>Usr.h</code>当中包含了用户类的所有数据成员和方法接口，并且附有详细的功能注释，建议熟悉各个API后再进行下一步。</p>
+<p>这里我们要对用户类中除了文件IO的两个方法之外的所有方法进行实现，请移步到<code>Usr.cpp</code>当中，根据API的功能要求完成所有的带有<code>TODO7</code>注释的函数逻辑实现。<br>另外友好地进行提醒：在全局变量初始化部分，墙裂建议为链表头指针追加哨兵节点以简化链表操作，该建议在后面的商品类、订单类、充值类中同样适用</p>
+<h4 id="0x02-基本完成商品类及部分方法"><a href="#0x02-基本完成商品类及部分方法" class="headerlink" title="0x02 基本完成商品类及部分方法"></a>0x02 基本完成商品类及部分方法</h4><p>与用户类类似，首先阅读<code>Merchandise.h</code>当中的注释和API，而后进入<code>Merchandise.cpp</code>里实现除文件IO的两个方法之外的所有带有<code>TODO8</code>注释的函数逻辑实现。</p>
+<h4 id="0x03-基本完成订单类及部分方法"><a href="#0x03-基本完成订单类及部分方法" class="headerlink" title="0x03 基本完成订单类及部分方法"></a>0x03 基本完成订单类及部分方法</h4><p>阅读<code>OrderForm.h</code>当中的注释和API，而后进入<code>OrderForm.cpp</code>里实现除文件IO的两个方法之外的所有带有<code>TODO9</code>注释的函数逻辑实现。</p>
+<h3 id="Step3-完成各个菜单条目中的功能"><a href="#Step3-完成各个菜单条目中的功能" class="headerlink" title="Step3.完成各个菜单条目中的功能"></a>Step3.完成各个菜单条目中的功能</h3><p>在完成了基本类之后，我们可以来对各个菜单条目当中的功能进行逐一实现，值得注意的是，在实现功能的过程当中你可能会发现先前实现的基本类当中的bug😎<br>注意：我们可以在<code>Window.cpp</code>当中找到指定分支，按住<code>Ctrl</code>键的同时点击函数以快速转到相应函数的定义处进行实现。</p>
+<h4 id="0x01-实现管理员登录（TODO10）"><a href="#0x01-实现管理员登录（TODO10）" class="headerlink" title="0x01 实现管理员登录（TODO10）"></a>0x01 实现管理员登录（TODO10）</h4><p>在<code>IOManger.cpp</code>当中的<code>admin_login</code>函数实现，无特别注意，建议适用<code>IOManager</code>类以<code>show</code>开头的方法展示提示信息、成功信息以及错误信息，另外通过库函数<code>sleep</code>和宏<code>DELAY</code>延迟显示以使得展示的成功&#x2F;错误信息能被用户短暂看见，后续的实现同样如此建议你们这么做🤐。</p>
+<h4 id="0x02-实现用户注册（TODO11）"><a href="#0x02-实现用户注册（TODO11）" class="headerlink" title="0x02 实现用户注册（TODO11）"></a>0x02 实现用户注册（TODO11）</h4><p>在<code>IOManager.cpp</code>当中的<code>usr_register</code>函数实现，注意我们需要首先实现用户名校验相关的<code>check_ch_en_input</code>函数以及<code>check_lowen_num_input</code>函数，注意这些函数定义均在<code>IOManager.cpp</code>当中。<br>另外：除用户名、用户密码格式检验外，我们还需要注意该用户名是否为空、该用户名是否已被注册，并且还要将该用户添加到用户列表当中（即Usr类的静态成员维护的一个链表）。且用户输入和成功&#x2F;错误信息的显示需要在本函数中实现，函数返回值表示用户注册是否成功。</p>
+<h4 id="0x03-实现用户登录（TODO12）"><a href="#0x03-实现用户登录（TODO12）" class="headerlink" title="0x03 实现用户登录（TODO12）"></a>0x03 实现用户登录（TODO12）</h4><p>在<code>IOManager.cpp</code>当中的<code>usr_login</code>函数实现，注意检查用户是否存在、用户是否被封禁。<br>当完成这一步后，你可以结合用户注册和用户登录来简单检验一下当前实现的正确性。</p>
+<h4 id="0x04-实现卖家基本功能（TODO13）"><a href="#0x04-实现卖家基本功能（TODO13）" class="headerlink" title="0x04 实现卖家基本功能（TODO13）"></a>0x04 实现卖家基本功能（TODO13）</h4><p>该条目下有多个功能需要实现：<br>1.发布商品，在<code>IOManager.cpp</code>当中的<code>add_merchandise</code>函数中进行实现，请注意对商品各项信息是否符合规范的校验；<br>2.查看发布商品，在<code>IOManager.cpp</code>当中的<code>usr_seller_menu_branches</code>对应分支中进行实现（不过我更推荐你将其封装成一个函数）；<br>3.修改商品信息，在<code>IOManager.cpp</code>当中的<code>modify_merchandise_info</code>函数中进行实现；<br>4.下架商品，在<code>IOManager.cpp</code>当中的<code>usr_remove_merchandise.cpp</code>函数中进行实现；<br>5.查看历史订单，在<code>IOManager.cpp</code>当中的<code>usr_seller_menu_branches</code>对应分支中进行实现（同样推荐你将其封装成一个函数）</p>
+<p>注意：在功能2、5实现当中，我推荐你使用<code>system(&quot;pause&quot;)</code>或者是<code>cin.clear(); getpass();</code>来实现按下任意键退出的功能，以供展示的信息能够被长久显示。<br>当你完成了上述所有任务或部分任务，墙裂建议运行程序执行一些操作以进行正确性检验。</p>
+<h4 id="0x05-实现买家基本功能（TODO14）"><a href="#0x05-实现买家基本功能（TODO14）" class="headerlink" title="0x05 实现买家基本功能（TODO14）"></a>0x05 实现买家基本功能（TODO14）</h4><p>该条目下同样有多个功能需要实现😄:<br>1.查看商品列表，在<code>IOManager.cpp</code>当中的<code>usr_buyer_menu_branches</code>对应分支中进行实现;<br>2.购买商品，在<code>IOManager.cpp</code>当中的<code>purchase_merchandise</code>函数中进行实现；<br>3.搜索商品，在<code>IOManager.cpp</code>当中的<code>usr_search_merchandise</code>函数中进行实现；<br>4.查看历史订单，在<code>IOManager.cpp</code>当中的<code>usr_buyer_menu_branches</code>对应分支中进行实现；<br>5.查看商品详细信息，在<code>IOManager.cpp</code>当中的<code>usr_show_merchandise_details_info</code>函数中进行实现；</p>
+<p>注意：在功能2的实现中要注意以下问题：商品是否存在，商品是否下架，商品是否售罄，商品是否是自己发布的，是否有足够的商品满足购买数量，是否有足够的余额进行购买，商品卖出后商品数量需要改变，商品卖出后买家花了钱，商品卖出后卖家赚了钱，商品卖出后增加了订单。</p>
+<h4 id="0x06-实现用户信息菜单基本功能（TODO15）"><a href="#0x06-实现用户信息菜单基本功能（TODO15）" class="headerlink" title="0x06 实现用户信息菜单基本功能（TODO15）"></a>0x06 实现用户信息菜单基本功能（TODO15）</h4><p>该条目下有多个功能需要实现：<br>1.查看信息，在<code>IOManager.cpp</code>当中的<code>show_specific_usr_details_info</code>函数中进行实现；<br>2.修改信息，在<code>IOManager.cpp</code>当中的<code>modify_usr_info</code>函数中进行实现；<br>3.充值，在<code>IOManager.cpp</code>当中的<code>usr_recharge</code>函数中进行实现；</p>
+<h4 id="0x07-实现管理员基本功能（TODO16）"><a href="#0x07-实现管理员基本功能（TODO16）" class="headerlink" title="0x07 实现管理员基本功能（TODO16）"></a>0x07 实现管理员基本功能（TODO16）</h4><p>该条目下有多个功能需要实现：<br>1.查看所有商品，在<code>IOManager.cpp</code>当中的<code>admin_menu_branches</code>对应分支中进行实现；<br>2.搜索商品，在<code>IOManager.cpp</code>当中的<code>admin_search_merchandise</code>函数中进行实现；<br>3.下架商品，在<code>IOManager.cpp</code>当中的<code>adminn_remove_merchandise</code>函数中进行实现；<br>4.查看所有订单，同功能1；<br>5.查看所有用户，同功能1；<br>6.封禁用户，在<code>IOManager.cpp</code>当中的<code>admin_ban_usr</code>函数中进行实现；</p>
+<p>以上所有功能实现的正确性均需要自己手动进行操作测试哦😆（憋问，问就是懒狗😠，不想配单元测试上来了</p>
+<h3 id="Step4-文件IO实现数据持久化存储（TODO17）"><a href="#Step4-文件IO实现数据持久化存储（TODO17）" class="headerlink" title="Step4.文件IO实现数据持久化存储（TODO17）"></a>Step4.文件IO实现数据持久化存储（TODO17）</h3><p>现在我们基本完成了P2P交易系统的基本功能，但是每当我们关闭了程序之后，下一次打开程序后所有的用户、商品、订单又重归于无，还记得我们在实现基本类（step2）里未实现的文件IO函数吗，这里就来实现它们实现数据的持久化存储😏</p>
+<p>在<code>Recharge.cpp</code>当中的两个文件IO函数已经提供了一个很好的示例，可以仿照其完成下述文件当中的TODO17条目：<br><code>Usr.cpp</code><br><code>Merchandise.cpp</code><br><code>OrderForm.cpp</code></p>
+<p>至此，我们的P2P交易系统就成功完成了！🤣</p>
+<h2 id="项目开发Part2-MYSQL数据库"><a href="#项目开发Part2-MYSQL数据库" class="headerlink" title="项目开发Part2.MYSQL数据库"></a>项目开发Part2.MYSQL数据库</h2><p>在实现流程中的条件编译可以使得我们开发过程和分支更加清晰，在实现了MYSQL之后，我们只需要在<code>General.h</code>中将名为<code>MYSQL</code>的宏打开，之后便可以启用我们自实现的“数据库”了。</p>
+<p>MYSQL的实现实际上在本项目中毫无实际意义，浪费计算资源，增加实现复杂度等等等，因此在这也不做过多的赘述，只是就实现思路进行复盘：<br>实现无非就是在原有的对于用户列表、商品列表、订单列表的搜索、添加、修改操作之上追加一层封装，指令的实现和解析则通过<code>string</code>类的相关方法以及正则表达式进行实现，进而依靠指令解析后的结果转入到对应的分支进行执行，而在实现了我们的数据库类之后，我们只需要在需要对用户、订单、商品进行增加、修改、查找的地方通过条件编译相关的宏，将原本的直接操作替换为MYSQL的相关接口调用即可。</p>
+<h2 id="项目开发Part3-Calculator表达式计算机及合并同类项化简"><a href="#项目开发Part3-Calculator表达式计算机及合并同类项化简" class="headerlink" title="项目开发Part3.Calculator表达式计算机及合并同类项化简"></a>项目开发Part3.Calculator表达式计算机及合并同类项化简</h2><p>表达式计算器的实现原理在我的另一篇文章中有提及：<br><a target="_blank" rel="noopener" href="https://pawx2.github.io/2022/01/16/%E5%AE%9E%E7%8E%B0%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97/">PA-实现四则运算 · pawx2’s Studio</a></p>
+<p>这里所采用的是BNF范式，相比于栈实现的中缀表达式转后缀表达式再用栈和符号优先级进行计算，BNF范式结合递归的实现策略能够有更加强大易用的拓展性和更多可能性的、便捷的错误报告和检测方式，个人认为更加优秀。<br>如果要细究实现细节，建议查看相关源代码。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>这篇tutorial说是tutorial，实际上更像是对自己第二次做P2P交易系统&#x2F;学生信息管理系统的一次复盘，整个项目和文章从无到有都并不是一开始脑袋中就有完整的蓝图，而是边做边改最后所形成的。<br>第一次做P2P交易系统是在大一的程序设计基础实验课上，整个过程同样犹如“坐牢”，曾经因为两个IO函数接口就琢磨了一整天还不会使，也算是走了不少的弯路，最后项目也做出来了，拓展功能也完成了，当时完成后并没有任何的欣喜，所有的只是松了一口气，并不满足，仅此而已，因为当初也仅仅只是摸着石头过河把Console程序写了出来，并且臃肿和简陋。<br>而第二次就是这一次了，这是高级程序设计课上的第一个大的project，实际上也是当年程序设计基础实验课的三个项目缝合在一起，这个项目令人熟悉而陌生，在花费了3天时间从一头雾水到完成Console版本之后，深深感觉第一次做的时候写下的“屎山代码”之恶心，也感慨学习计算机一年以来自己的能力已经和从前大不相同，不仅仅是代码的能力，更多的还有阅读文档，查找资料的能力。大一时找两个接口的使用方法，我用了一整天，而这一次，我却能在一天之内查询到不知道多少个接口并快速地将其运用起来。<br>在完成了Console版本之后的三天，我又马不停蹄地将Linux下开发的Console源代码移植到Windows下的Qt，原本以为移植到一个框架中仅仅只是一天的事，但却没想到有一堆的接口等问题，加上UI布局等等额外扩展出的东西，大差不差也算是重新从头来了一遍，虽说花了时间，但也完成了代码的重构，当最后看到自己的窗口化程序运行了起来，心中确确实实地会有“孩子出生了”的大欣喜，也更加激发了对于计算机的兴趣。</p>
+<p><img src="/2022/03/22/project-%E5%86%AC%E5%A5%A5%E7%BA%AA%E5%BF%B5%E5%93%81%E4%BA%A4%E6%98%93%E5%B9%B3%E5%8F%B0-%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A1%8D%E7%94%9F/Inked2022-03-23_LI.jpg" alt="Inked2022-03-23_LI"></p>
+<p>想想一年前，程序完成的松一口气，和如今程序完成后的欣喜，总是令人感慨学习的路还很长，学习的东西、应用的东西越多，所能获得的“掌控感”就越大，从而越能为之欣喜，为之鼓舞😏</p>
+<p>最后的最后，祝你也能找到自己感兴趣之事，将自己所作的变成自己所爱的。嗯，写得手累死了，润！😛</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/project/" rel="tag"># project</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/Qt/" rel="tag"># Qt</a>
+              <a href="/tags/Tutorial/" rel="tag"># Tutorial</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/16/Markdown%E8%A1%A8%E6%83%85%E5%A4%A7%E5%85%A8/" rel="prev" title="Markdown表情大全">
+      <i class="fa fa-chevron-left"></i> Markdown表情大全
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/14/5%E4%B8%AA%E5%85%83%E7%B4%A0%E6%8E%92%E5%BA%8F%E6%89%80%E9%9C%80%E7%9A%84%E6%9C%80%E5%B0%8F%E6%AF%94%E8%BE%83%E6%AC%A1%E6%95%B0/" rel="next" title="5个元素排序所需的最小比较次数">
+      5个元素排序所需的最小比较次数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#project-%E5%86%AC%E5%A5%A5%E7%BA%AA%E5%BF%B5%E5%93%81%E4%BA%A4%E6%98%93%E5%B9%B3%E5%8F%B0-%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A1%8D%E7%94%9F"><span class="nav-number">1.</span> <span class="nav-text">project-冬奥纪念品交易平台(信息管理系统衍生)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%9C%80%E6%B1%82-%E7%9B%AE%E5%BD%95%E5%B1%82%E7%BA%A7"><span class="nav-number">1.1.</span> <span class="nav-text">项目需求-目录层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-number">1.2.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">1.3.</span> <span class="nav-text">开发环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="nav-number">1.4.</span> <span class="nav-text">整体思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E"><span class="nav-number">1.5.</span> <span class="nav-text">文件结构说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91Part1-P2P%E4%BA%A4%E6%98%93%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.6.</span> <span class="nav-text">项目开发Part1.P2P交易系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step1-%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B"><span class="nav-number">1.6.1.</span> <span class="nav-text">Step1.自顶向下</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01-%E4%BB%80%E4%B9%88%E6%98%AFtm%E7%9A%84%E7%B3%BB%E7%BB%9F%EF%BC%9F%E5%93%A6-%EF%BC%8C%E5%8E%9F%E6%9D%A5%E8%BF%99tm%E7%9A%84%E6%98%AF%E7%B3%BB%E7%BB%9F%E5%95%8A%EF%BC%81"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">0x01 什么是tm的系统？哦~，原来这tm的是系统啊！</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02-%E5%AE%8C%E6%88%90%E6%88%91%E4%BB%AC%E7%9A%84%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">0x02 完成我们的系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x03-%E5%AE%8C%E6%88%90Window%E7%B1%BB"><span class="nav-number">1.6.1.3.</span> <span class="nav-text">0x03 完成Window类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step2-%E5%AE%8C%E6%88%90%E5%9F%BA%E7%A1%80%E7%B1%BB%EF%BC%88%E7%94%A8%E6%88%B7%E3%80%81%E5%95%86%E5%93%81%E3%80%81%E8%AE%A2%E5%8D%95%EF%BC%89"><span class="nav-number">1.6.2.</span> <span class="nav-text">Step2.完成基础类（用户、商品、订单）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01-%E5%9F%BA%E6%9C%AC%E5%AE%8C%E6%88%90%E7%94%A8%E6%88%B7%E7%B1%BB%E5%8F%8A%E9%83%A8%E5%88%86%E6%96%B9%E6%B3%95"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">0x01 基本完成用户类及部分方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02-%E5%9F%BA%E6%9C%AC%E5%AE%8C%E6%88%90%E5%95%86%E5%93%81%E7%B1%BB%E5%8F%8A%E9%83%A8%E5%88%86%E6%96%B9%E6%B3%95"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">0x02 基本完成商品类及部分方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x03-%E5%9F%BA%E6%9C%AC%E5%AE%8C%E6%88%90%E8%AE%A2%E5%8D%95%E7%B1%BB%E5%8F%8A%E9%83%A8%E5%88%86%E6%96%B9%E6%B3%95"><span class="nav-number">1.6.2.3.</span> <span class="nav-text">0x03 基本完成订单类及部分方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step3-%E5%AE%8C%E6%88%90%E5%90%84%E4%B8%AA%E8%8F%9C%E5%8D%95%E6%9D%A1%E7%9B%AE%E4%B8%AD%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.6.3.</span> <span class="nav-text">Step3.完成各个菜单条目中的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01-%E5%AE%9E%E7%8E%B0%E7%AE%A1%E7%90%86%E5%91%98%E7%99%BB%E5%BD%95%EF%BC%88TODO10%EF%BC%89"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">0x01 实现管理员登录（TODO10）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02-%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%EF%BC%88TODO11%EF%BC%89"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">0x02 实现用户注册（TODO11）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x03-%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%EF%BC%88TODO12%EF%BC%89"><span class="nav-number">1.6.3.3.</span> <span class="nav-text">0x03 实现用户登录（TODO12）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x04-%E5%AE%9E%E7%8E%B0%E5%8D%96%E5%AE%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD%EF%BC%88TODO13%EF%BC%89"><span class="nav-number">1.6.3.4.</span> <span class="nav-text">0x04 实现卖家基本功能（TODO13）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x05-%E5%AE%9E%E7%8E%B0%E4%B9%B0%E5%AE%B6%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD%EF%BC%88TODO14%EF%BC%89"><span class="nav-number">1.6.3.5.</span> <span class="nav-text">0x05 实现买家基本功能（TODO14）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x06-%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E8%8F%9C%E5%8D%95%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD%EF%BC%88TODO15%EF%BC%89"><span class="nav-number">1.6.3.6.</span> <span class="nav-text">0x06 实现用户信息菜单基本功能（TODO15）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x07-%E5%AE%9E%E7%8E%B0%E7%AE%A1%E7%90%86%E5%91%98%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD%EF%BC%88TODO16%EF%BC%89"><span class="nav-number">1.6.3.7.</span> <span class="nav-text">0x07 实现管理员基本功能（TODO16）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step4-%E6%96%87%E4%BB%B6IO%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8%EF%BC%88TODO17%EF%BC%89"><span class="nav-number">1.6.4.</span> <span class="nav-text">Step4.文件IO实现数据持久化存储（TODO17）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91Part2-MYSQL%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.7.</span> <span class="nav-text">项目开发Part2.MYSQL数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91Part3-Calculator%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%8A%E5%90%88%E5%B9%B6%E5%90%8C%E7%B1%BB%E9%A1%B9%E5%8C%96%E7%AE%80"><span class="nav-number">1.8.</span> <span class="nav-text">项目开发Part3.Calculator表达式计算机及合并同类项化简</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">1.9.</span> <span class="nav-text">最后</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pawx2"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">pawx2</p>
+  <div class="site-description" itemprop="description">Peace comes from within</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pawx2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pawx2" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/hibna" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;hibna" rel="noopener" target="_blank">Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pawx2</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":120,"height":240},"mobile":{"show":true},"log":false});</script></body>
+</html>
