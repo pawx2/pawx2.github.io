@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="排成一列的纸牌，博弈双方轮流每次从左端或者右端不放回地抽取纸牌，不同纸牌对应不同点数。假定博弈双方都足够聪明，求最终先手方和后手方分别能够获得的点数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ALG-DP-EX:纸牌博弈">
+<meta property="og:url" content="http://example.com/2022/06/05/ALG-DP-EX-%E7%BA%B8%E7%89%8C%E5%8D%9A%E5%BC%88/index.html">
+<meta property="og:site_name" content="Pawx2&#39;s Studio">
+<meta property="og:description" content="排成一列的纸牌，博弈双方轮流每次从左端或者右端不放回地抽取纸牌，不同纸牌对应不同点数。假定博弈双方都足够聪明，求最终先手方和后手方分别能够获得的点数。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-05T12:48:27.000Z">
+<meta property="article:modified_time" content="2022-06-06T01:16:02.129Z">
+<meta property="article:author" content="pawx2">
+<meta property="article:tag" content="ALG-DP-EX">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/06/05/ALG-DP-EX-%E7%BA%B8%E7%89%8C%E5%8D%9A%E5%BC%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ALG-DP-EX:纸牌博弈 | Pawx2's Studio</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pawx2's Studio</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">None</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/05/ALG-DP-EX-%E7%BA%B8%E7%89%8C%E5%8D%9A%E5%BC%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="pawx2">
+      <meta itemprop="description" content="Peace comes from within">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pawx2's Studio">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ALG-DP-EX:纸牌博弈
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-06-05 20:48:27" itemprop="dateCreated datePublished" datetime="2022-06-05T20:48:27+08:00">2022-06-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-06 09:16:02" itemprop="dateModified" datetime="2022-06-06T09:16:02+08:00">2022-06-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ALG-EX/" itemprop="url" rel="index"><span itemprop="name">ALG-EX</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">排成一列的纸牌，博弈双方轮流每次从左端或者右端不放回地抽取纸牌，不同纸牌对应不同点数。假定博弈双方都足够聪明，求最终先手方和后手方分别能够获得的点数。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote class="blockquote-center">
+            <i class="fa fa-quote-left"></i>
+            <p>勇敢就是，在你还没开始的时候就知道自己注定会输，<br>但依然义无反顾地去做，并且不管发生什么都坚持到底。<br>一个人很少能赢，但也总有赢的时候。<br><strong>《杀死一只知更鸟》</strong></p>
+
+            <i class="fa fa-quote-right"></i>
+          </blockquote>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p><strong>纸牌博弈问题</strong><br>排成一排的纸牌，每张纸牌都有其点数，博弈双方轮流每次从左端或右端不放回地抽取纸牌，假定博弈双方都足够聪明，求最终先手方和后手方分别能够获得的点数。</p>
+</blockquote>
+<p>该问题为经典的DP动态规划问题，而根据限制条件可以分为两个问题：<br>1.每次只能抽取一张纸牌，基础版本；<br>2.每次可以抽取连续多张纸牌，进阶版本；</p>
+<h1 id="单张抽取"><a href="#单张抽取" class="headerlink" title="单张抽取"></a>单张抽取</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>可见：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/predict-the-winner/">Leetcode.486 预测赢家</a></p>
+<blockquote>
+<p>Description：<br>给定一个整数数组，双方<strong>轮流每次从整数数组左端或右端每次不放回地抽取一个数字</strong>，假定双方都足够聪明，最后依照双方各自所得数字之和判定胜负：<br>先手方获得数字之和 &gt;&#x3D; 后手方获得数字之和，先手方获胜；<br>否则，后手方获胜；<br>Input：整数数组Cards[a1, a2, a3, a4, …, an]<br>Output: 先手方能赢得游戏 True，否则 False；</p>
+</blockquote>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>解决该问题很重要的两个要点在于：<br>1.<strong>解题思路基于区间扩增，而不是随时间扩增</strong>；<br>2.<strong>双方博弈对抗实际上可以视为自己和自己对抗</strong>；</p>
+<p>首先是第一个要点：<br>看到问题中的“轮流”，我们很容易陷入一个误区，即按照时间线&#x2F;对局的进行来考虑问题。但实际上认识到其作为动态规划问题后，我们不难发现<strong>大问题的解决依赖于小问题，动态规划实质为有组织的Brute Force（蛮力求解），以优化时间复杂度</strong>。而要获得所给“大数组”情况下的问题结果，我们从“小数组”情况开始考虑，进而不断拓展问题规模，最终解决问题。</p>
+<p>其次是第二个要点：<br>博弈双方的引入实际上也可能会困扰我们的思路，但倘若我们换个角度，<strong>自己和自己对抗，则问题就变为了“最优选择”与“最差选择”的交替进行</strong>，从而进行动态规划。</p>
+<h3 id="DP描述问题"><a href="#DP描述问题" class="headerlink" title="DP描述问题"></a>DP描述问题</h3><p>基于上述两个要点，我们可以构建出DP矩阵来为问题进行描述：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f[l][r];	<span class="comment">//以Cards的 l 到 r 这个区间为问题范围，先手方所能获得的数字之和；</span></span><br><span class="line">s[l][r];	<span class="comment">//以Cards的 l 到 r 这个区间为问题范围，后手方所能获得的数字之和；</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="DP状态转移方程"><a href="#DP状态转移方程" class="headerlink" title="DP状态转移方程"></a>DP状态转移方程</h3><p>通过分析知道，问题为“最优选择”与“最差选择”的交替进行。<br>DP矩阵 f 描述先手方，其应当选择最优，而DP矩阵 s 描述后手方，其应当选择最差。<br>从而有如下状态转移方程：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先手方：当前剩余牌组为Cards: l-&gt;r，考虑max(左端取一张点数+变成后手， 右端取一张点数+变成后手)</span></span><br><span class="line">f[l][r] = <span class="built_in">max</span>(Cards[l] + s[l+<span class="number">1</span>][r], Cards[r] + s[l][r<span class="number">-1</span>]);</span><br><span class="line"><span class="comment">// 后手方：当前剩余牌组为Cards: l-&gt;r，考虑min(左端被先手方取走+变成先手，右端被先手方取走+变成先手)</span></span><br><span class="line">s[l][r] = <span class="built_in">min</span>(f[l+<span class="number">1</span>][r], f[l][r<span class="number">-1</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>另外，不要忘记了有Base Case：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当仅有一张牌时</span></span><br><span class="line">f[l][l] = Cards[l];		<span class="comment">// 规定每次必须拿走一张牌，先手方不得不拿</span></span><br><span class="line">s[l][l] = <span class="number">0</span>;			<span class="comment">// 作为后手方，牌已经被拿完了</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h3><p>由上述分析知道，如果我们依照如下方式描述矩阵：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span>                      n</span><br><span class="line">   ┌─────────────────────►</span><br><span class="line">   │</span><br><span class="line">   │</span><br><span class="line">   │</span><br><span class="line">   │</span><br><span class="line">   │</span><br><span class="line">n  ▼</span><br></pre></td></tr></table></figure>
+
+<p>则矩阵 f 和矩阵 s应当进行同步更新，并且总有 l &lt; r，两个矩阵都属于<strong>下三角阵</strong>。<br>另外根据依赖关系，我们可以知道当前待求总依赖于其左方与下方，因此我们DP求解顺序应当为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────►</span><br><span class="line">│ ▲</span><br><span class="line">│ │ ▲</span><br><span class="line">│ │ │ ▲</span><br><span class="line">│ │ │ │ ▲</span><br><span class="line">│ │ │ │ │ ▲</span><br><span class="line">▼ │ │ │ │ │▲</span><br></pre></td></tr></table></figure>
+
+<p>从而我们可以设计出循环嵌套关系为：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for r = 0 to n do:</span><br><span class="line">	for l = r - 1 to 0 do:</span><br><span class="line">		Update f[l][r] And s[l][r]</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>C++实现<br>时间复杂度：O(n^2)<br>空间复杂度：O(n^2)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">PredictTheWinner</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; Cards)</span> </span>&#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">f</span>(Cards.<span class="built_in">size</span>(), <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(Cards.<span class="built_in">size</span>(), <span class="number">0</span>));</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">s</span>(Cards.<span class="built_in">size</span>(), <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(Cards.<span class="built_in">size</span>(), <span class="number">0</span>));</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> r = <span class="number">0</span>; r &lt; Cards.<span class="built_in">size</span>(); r++)</span><br><span class="line">        &#123;</span><br><span class="line">            f[r][r] = Cards[r];</span><br><span class="line">            s[r][r] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> l = r - <span class="number">1</span>; l &gt;= <span class="number">0</span>; l--)</span><br><span class="line">            &#123;</span><br><span class="line">                f[l][r] = <span class="built_in">max</span>(Cards[l] + s[l+<span class="number">1</span>][r], Cards[r] + s[l][r<span class="number">-1</span>]);</span><br><span class="line">                s[l][r] = <span class="built_in">min</span>(f[l+<span class="number">1</span>][r], f[l][r<span class="number">-1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> f[<span class="number">0</span>][Cards.<span class="built_in">size</span>()<span class="number">-1</span>] &gt;= s[<span class="number">0</span>][Cards.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在完成了单张抽取情况下的DP，不妨来逝逝连续抽取的情况，其更能体现DP动态规划的精髓：<strong>通过巧妙的组织节省不必要的运算，进而使得Brute Force蛮力枚举的时间复杂度大幅度下降</strong>。</p>
+<h1 id="连续抽取"><a href="#连续抽取" class="headerlink" title="连续抽取"></a>连续抽取</h1><h2 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h2><blockquote>
+<p>Description:<br>给定一个整数，双方<strong>轮流每次从整数数组左端或右端每次不放回地连续抽取数字（每次至少抽取一个数字）</strong>，假定双方都足够聪明，最后依照双方各自所得数字之和判定胜负：<br>先手方获得数字之和 &gt;&#x3D; 后手方获得数字之和，先手方获胜；<br>否则，后手方获胜；<br>Input：整数数组Cards[a1, a2, a3, a4, …, an]<br>Output: 先手方能赢得游戏 True，否则 False；</p>
+</blockquote>
+<h2 id="解决思路-1"><a href="#解决思路-1" class="headerlink" title="解决思路"></a>解决思路</h2><p>大致思路同每次只允许抽一张的情况一致，我们从Brute Force蛮力策略O(n^3)开始考虑，而后通过DP优化将时间复杂度降低至O(n^2)。</p>
+<h3 id="Brute-Force蛮力策略"><a href="#Brute-Force蛮力策略" class="headerlink" title="Brute Force蛮力策略"></a>Brute Force蛮力策略</h3><p>即直接暴力求解，以Cards[2, 7]为例，sums[i, j]表示牌组Cards从i -&gt; j范围内所有牌的点数之和：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Update DP Matrix s</span></span><br><span class="line">				<span class="comment">//先手方从左侧抽剩下	  //先手方从右侧抽剩下</span></span><br><span class="line">s[<span class="number">2</span>, <span class="number">7</span>] = min&#123;</span><br><span class="line">    			f[<span class="number">3</span>, <span class="number">7</span>],			f[<span class="number">2</span>, <span class="number">6</span>],</span><br><span class="line">    			f[<span class="number">4</span>, <span class="number">7</span>],			f[<span class="number">2</span>, <span class="number">5</span>],</span><br><span class="line">    			f[<span class="number">5</span>, <span class="number">7</span>],			f[<span class="number">2</span>, <span class="number">4</span>],</span><br><span class="line">    			f[<span class="number">6</span>, <span class="number">7</span>],			f[<span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    			f[<span class="number">7</span>, <span class="number">7</span>],			f[<span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Update DP Matrix f</span></span><br><span class="line">				<span class="comment">//从左侧连续抽				//从右侧连续抽</span></span><br><span class="line">f[<span class="number">2</span>, <span class="number">7</span>] = max&#123;</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">2</span>] + s[<span class="number">3</span>, <span class="number">7</span>]),		(s[<span class="number">2</span>, <span class="number">2</span>] + sums[<span class="number">3</span>, <span class="number">7</span>]),</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">3</span>] + s[<span class="number">4</span>, <span class="number">7</span>]),		(s[<span class="number">2</span>, <span class="number">3</span>] + sums[<span class="number">4</span>, <span class="number">7</span>]),</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">4</span>] + s[<span class="number">5</span>, <span class="number">7</span>]),		(s[<span class="number">2</span>, <span class="number">4</span>] + sums[<span class="number">5</span>, <span class="number">7</span>]),</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">5</span>] + s[<span class="number">6</span>, <span class="number">7</span>]),		(s[<span class="number">2</span>, <span class="number">5</span>] + sums[<span class="number">6</span>, <span class="number">7</span>]),</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">6</span>] + s[<span class="number">7</span>, <span class="number">7</span>]),		(s[<span class="number">2</span>, <span class="number">6</span>] + sums[<span class="number">7</span>, <span class="number">7</span>]),</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">7</span>]),				(s[<span class="number">2</span>, <span class="number">7</span>]),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么一个很显然的想法是：基于先前每次仅抽取一张牌的算法，在运行前先用O(n^2)时间复杂度计算出sums数组，而后每次对 f[i, j] 和 s[i, j] 更新时都使用另一个变量k，k: i -&gt; j来遍历所有情况进行更新，这样形成一个三层 for循环 嵌套，不难验证时间复杂度为O(n^3)。<br>下面给出Brute Force算法代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">PredictTheWinner</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; Cards)</span> </span>&#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">f</span>(Cards.<span class="built_in">size</span>(), <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(Cards.<span class="built_in">size</span>(), <span class="number">0</span>));</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">s</span>(Cards.<span class="built_in">size</span>(), <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(Cards.<span class="built_in">size</span>(), <span class="number">0</span>));</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">sums</span>(Cards.<span class="built_in">size</span>(), <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(Cards.<span class="built_in">size</span>(), <span class="number">0</span>));</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> e = <span class="number">0</span>; e &lt; Cards.<span class="built_in">size</span>(); e++)</span><br><span class="line">    &#123;</span><br><span class="line">		<span class="type">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> s = e; s &gt;= <span class="number">0</span>; s--)</span><br><span class="line">        &#123;</span><br><span class="line">			tmp += Cards[s];</span><br><span class="line">            sums[s][e] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> r = <span class="number">0</span>; r &lt; Cards.<span class="built_in">size</span>(); r++)</span><br><span class="line">    &#123;</span><br><span class="line">		f[r][r] = Cards[r];</span><br><span class="line">        s[r][r] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> l = r - <span class="number">1</span>; l &gt;= <span class="number">0</span>; l--)</span><br><span class="line">        &#123;</span><br><span class="line">			f[l][r] = sums[l][r];</span><br><span class="line">            <span class="comment">// Brute Force Update DP Matrix f</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k = l; k &lt; r; k++)</span><br><span class="line">            &#123;</span><br><span class="line">                f[l][r] = <span class="built_in">max</span>(f[l][r], <span class="built_in">max</span>(sums[l][k] + s[k+<span class="number">1</span>][r], s[l][k] + sums[k+<span class="number">1</span>][r]));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Brute Force Update DP Matrix s</span></span><br><span class="line">            s[l][r] = INT_MAX;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k = l+<span class="number">1</span>; k &lt;= r; k++) s[l][r] = <span class="built_in">min</span>(s[l][r], f[k][r]);</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k = r<span class="number">-1</span>; k &gt;= l; k--) s[l][r] = <span class="built_in">min</span>(s[l][r], f[l][k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f[<span class="number">0</span>][Cards.<span class="built_in">size</span>()<span class="number">-1</span>] &gt;= s[<span class="number">0</span>][Cards.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DP优化"><a href="#DP优化" class="headerlink" title="DP优化"></a>DP优化</h3><p>通过观察上述状态转移实例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Update DP Matrix s</span></span><br><span class="line">				<span class="comment">//先手方从左侧抽剩下	  //先手方从右侧抽剩下</span></span><br><span class="line">s[<span class="number">2</span>, <span class="number">7</span>] = min&#123;</span><br><span class="line">    			f[<span class="number">3</span>, <span class="number">7</span>],			f[<span class="number">2</span>, <span class="number">6</span>],</span><br><span class="line">    			f[<span class="number">4</span>, <span class="number">7</span>],			f[<span class="number">2</span>, <span class="number">5</span>],</span><br><span class="line">    			f[<span class="number">5</span>, <span class="number">7</span>],			f[<span class="number">2</span>, <span class="number">4</span>],</span><br><span class="line">    			f[<span class="number">6</span>, <span class="number">7</span>],			f[<span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    			f[<span class="number">7</span>, <span class="number">7</span>],			f[<span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Update DP Matrix f</span></span><br><span class="line">				<span class="comment">//从左侧连续抽				//从右侧连续抽</span></span><br><span class="line">f[<span class="number">2</span>, <span class="number">7</span>] = max&#123;</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">2</span>] + s[<span class="number">3</span>, <span class="number">7</span>]),		(s[<span class="number">2</span>, <span class="number">2</span>] + sums[<span class="number">3</span>, <span class="number">7</span>]),</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">3</span>] + s[<span class="number">4</span>, <span class="number">7</span>]),		(s[<span class="number">2</span>, <span class="number">3</span>] + sums[<span class="number">4</span>, <span class="number">7</span>]),</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">4</span>] + s[<span class="number">5</span>, <span class="number">7</span>]),		(s[<span class="number">2</span>, <span class="number">4</span>] + sums[<span class="number">5</span>, <span class="number">7</span>]),</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">5</span>] + s[<span class="number">6</span>, <span class="number">7</span>]),		(s[<span class="number">2</span>, <span class="number">5</span>] + sums[<span class="number">6</span>, <span class="number">7</span>]),</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">6</span>] + s[<span class="number">7</span>, <span class="number">7</span>]),		(s[<span class="number">2</span>, <span class="number">6</span>] + sums[<span class="number">7</span>, <span class="number">7</span>]),</span><br><span class="line">    			(sums[<span class="number">2</span>, <span class="number">7</span>]),				(s[<span class="number">2</span>, <span class="number">7</span>]),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们不难发现：</p>
+<ol>
+<li><p>对于 s[i][j] 的状态转移，实际上仅仅只依赖于<strong>当前已得出的 f 第 i 行中的最小值</strong>与<strong>当前已得出的 f 第 j 列中的最小值</strong>。那么显然的一个思路为：</p>
+<blockquote>
+<p>利用两个一维矩阵 slmin、srmin 分别记录 f 各行的最小值、f各列的最小值，而后更新 s[i][j] 时仅需要<code>s[i][j] = min(slmin[i], srmin[j]);</code>即可，而对 slmin 和 srmin 的更新则可以在每次更新 f 后进行更新，因为依赖于先前分析的更新顺序，在更新到 s[i][j] 时，其所需的 f 元素早已计算完成。</p>
+</blockquote>
+</li>
+<li><p>对于 f[i][j] 的状态转移则没有那么明显，如果我们正面思考，则会陷入困局：固定左侧 l，右侧 r，中间以 k 遍历获取最差状态，则总是要三层 for循环 从而无法优化时间复杂度。<br> 但是如果我们反向思考：<strong>我方先手获取到最优 &#x3D;&#x3D; 对方获取到最差</strong>，而又已知 sums[i][j] 实际上对于 i -&gt; j 范围内的讨论其总为定值，那么有如下分析；</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;我方先手在 Cards:i-&gt;j 下所能获得的最优 = sums[i, j] - 对方在 Cards:i-&gt;j 下所能获得的最差;&gt;</span><br><span class="line"></span><br><span class="line">&lt;对方在 Cards:i-&gt;j 下所能获得的最差 = <span class="built_in">min</span>(sums[i, k] - s[i, k], sums[k, j] - s[k, j]);  k:i-&gt;j&gt;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这里的sums[i, k] - s[i, k] 和 sums[k, j] - s[k, j]</span></span><br><span class="line"><span class="comment">意义为：</span></span><br><span class="line"><span class="comment">1. sums[i, j] - 我方先手 - 我方后手 = 对方所获</span></span><br><span class="line"><span class="comment">2. 而我方先手已由k进行去除，譬如sums[i, k] - s[i, k]对于Cards[i, j]区间而言，我方先手为sums[k+1, j]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p> 而观察上述，我们同样可以知道，<strong>对方所能获得的最差同样仅与固定行、固定列有关</strong>，从而我们可以构造两个一维矩阵 flmin、frmin 来记录固定行、固定列下对手所能获得的最小值, 仿照对 s[i][j] 的更新来完成对 f[i][j] 的更新：<code>f[i][j] = max(sums[i][j] - flmin[i], sums[i][j] - frmin[j]);</code>。</p>
+<h3 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h3><p> 通过上述分析我们可以列出状态转移方程：<br> 同样注意Base Case：</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当仅有一张牌时</span></span><br><span class="line">f[l][l] = Cards[l];			<span class="comment">// 规定每次必须拿走至少一张牌，先手方不得不拿</span></span><br><span class="line">s[l][l] = <span class="number">0</span>;				<span class="comment">// 作为后手方，牌已经被拿完</span></span><br></pre></td></tr></table></figure>
+
+<p> 对于 slmin, srmin, flmin, frmin, f, s的状态转移有：</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Update DP Matrix s And f</span></span><br><span class="line">s[l][r] = <span class="built_in">min</span>(slmin[l], srmin[r]);</span><br><span class="line">f[l][r] = <span class="built_in">max</span>(sums[l][r] - flmin[l], sums[l][r] - frmin[r]);</span><br><span class="line"><span class="comment">// Update Helper Array slmin And srmin</span></span><br><span class="line">slmin[l] = <span class="built_in">min</span>(slmin[l], f[l][r]);</span><br><span class="line">srmin[r] = <span class="built_in">min</span>(srmin[r], f[l][r]);</span><br><span class="line"><span class="comment">// Update Helper Array flmin And frmin</span></span><br><span class="line">flmin[l] = <span class="built_in">min</span>(flmin[l], sums[l][r] - s[l][r]);</span><br><span class="line">frmin[r] = <span class="built_in">min</span>(frmin[r], sums[l][r] - s[l][r]);</span><br></pre></td></tr></table></figure>
+
+<p> 另外，需要注意的一点是：对于slmin、srmin、flmin、frmin的更新一定是在 s、f 更新完成之后，否则会引入多余状态，从而导致结果不符合预期😋。</p>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><p> C++实现<br> 时间复杂度：O(n^2)<br> 空间复杂度：O(n^2)</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">PredicTheWinner</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; Cards)</span> </span>&#123;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">f</span>(Cards.<span class="built_in">size</span>(), <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(Cards.<span class="built_in">size</span>(), <span class="number">0</span>));</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">s</span>(Cards.<span class="built_in">size</span>(), <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(Cards.<span class="built_in">size</span>(), <span class="number">0</span>));</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">slmin</span><span class="params">(Cards.size(), INT_MAX)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">srmin</span><span class="params">(Cards.size(), INT_MAX)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">flmin</span><span class="params">(Cards.size(), INT_MAX)</span></span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">frmin</span><span class="params">(Cards.size(), INT_MAX)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> r = <span class="number">0</span>; r &lt; Cards.<span class="built_in">size</span>(); r++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Base Case</span></span><br><span class="line">		f[r][r] = Cards[r];</span><br><span class="line">        s[r][r] = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        slmin[r] = <span class="built_in">min</span>(slmin[r], f[r][r]);</span><br><span class="line">        srmin[r] = <span class="built_in">min</span>(srmin[r], f[r][r]);</span><br><span class="line">        </span><br><span class="line">        flmin[r] = <span class="built_in">min</span>(flmin[r], sums[r][r] - s[r][r]);</span><br><span class="line">        frmin[r] = <span class="built_in">min</span>(frmin[r], sums[r][r] - s[r][r]);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> l = r - <span class="number">1</span>; l &gt;= <span class="number">0</span>; l--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// Update DP Matrix f And s</span></span><br><span class="line">        	f[l][r] = sums[l][r];</span><br><span class="line">            f[l][r] = <span class="built_in">max</span>(f[l][r], <span class="built_in">max</span>(sums[l][r] - flmin[l], sums[l][r] - frmin[r]));</span><br><span class="line">            s[l][r] = <span class="built_in">min</span>(slmin[l], srmin[r]);</span><br><span class="line">            <span class="comment">// Update Helper Array slmin And srmin</span></span><br><span class="line">            slmin[l] = <span class="built_in">min</span>(slmin[l], f[l][r]);</span><br><span class="line">            srmin[r] = <span class="built_in">min</span>(srmin[r], f[l][r]);</span><br><span class="line">            <span class="comment">// Update Helper Array flmin And frmin</span></span><br><span class="line">            flmin[l] = <span class="built_in">min</span>(flmin[l], sums[l][r] - s[l][r]);</span><br><span class="line">            frmin[r] = <span class="built_in">min</span>(frmin[r], sums[l][r] - s[l][r]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f[<span class="number">0</span>][Cards.<span class="built_in">size</span>()<span class="number">-1</span>] &gt;= s[<span class="number">0</span>][Cards.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p> <strong>DP动态规划核心是：有组织地进行Brute Force蛮力求解，通过巧妙的组织计算次序、记录状态来消减重复计算，从而优化时间复杂度。设计DP算法的关键点是：使用DP矩阵对问题进行描述 + 状态转移方程</strong></p>
+<p> Happy Ending!🥳</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ALG-DP-EX/" rel="tag"># ALG-DP-EX</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-RSA%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" rel="prev" title="计算机网络-RSA加密算法">
+      <i class="fa fa-chevron-left"></i> 计算机网络-RSA加密算法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E5%BC%A0%E6%8A%BD%E5%8F%96"><span class="nav-number">2.</span> <span class="nav-text">单张抽取</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="nav-number">2.2.</span> <span class="nav-text">解决思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DP%E6%8F%8F%E8%BF%B0%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.1.</span> <span class="nav-text">DP描述问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DP%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">DP状态转移方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="nav-number">2.2.3.</span> <span class="nav-text">依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.4.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E6%8A%BD%E5%8F%96"><span class="nav-number">3.</span> <span class="nav-text">连续抽取</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0-1"><span class="nav-number">3.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF-1"><span class="nav-number">3.2.</span> <span class="nav-text">解决思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Brute-Force%E8%9B%AE%E5%8A%9B%E7%AD%96%E7%95%A5"><span class="nav-number">3.2.1.</span> <span class="nav-text">Brute Force蛮力策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DP%E4%BC%98%E5%8C%96"><span class="nav-number">3.2.2.</span> <span class="nav-text">DP优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B"><span class="nav-number">3.2.3.</span> <span class="nav-text">状态转移方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">3.2.4.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#End"><span class="nav-number">4.</span> <span class="nav-text">End</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pawx2"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">pawx2</p>
+  <div class="site-description" itemprop="description">Peace comes from within</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pawx2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pawx2" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/hibna" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;hibna" rel="noopener" target="_blank">Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pawx2</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":120,"height":240},"mobile":{"show":true},"log":false});</script></body>
+</html>
