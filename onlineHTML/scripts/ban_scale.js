@@ -16,3 +16,11 @@ document.addEventListener('keydown', function (event) {
         event.preventDefault();
     }
 }, false);
+
+
+// 移动端禁止缩放
+let handler = function(e){
+    e.preventDefault()
+}
+
+document.addEventListener('touchmove', handler, false)
