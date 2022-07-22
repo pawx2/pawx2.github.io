@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 禁止浏览器缩放 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <!-- 引入CSS样式文件 -->
+    <link href="./style/main.css" rel="stylesheet">
+    <link href="./style/scroll-bar.css" rel="stylesheet">
+    <link href="./style/cover.css" rel="stylesheet">
+    <link href="./style/cover-logo.css" rel="stylesheet">
+    <link href="./style/cover-stars.css" rel="stylesheet">
+    <!-- 设置网站图标 -->
+    <link href="./resources/cow.svg" rel="shortcut icon">
+    <!-- 设置网站标题 -->
+    <title>OnlineHTML-ByCow</title>
+</head>
+<body>
+    <!-- 绑定了Cow的页面整体 -->
+    <div id="app">
+        <!-- 编辑区 -->
+        <div id="editor">
+            <div id="edit_bar"></div>
+            <textarea id="edit" wrap="hard" rows="30" cols="80" placeholder="请输入内容..." v-model="msg"></textarea>
+        </div>
+        <!-- 按钮组 -->
+        <div id="btns" class="btn_container">
+            <div id="clear_btn" class="btn" title="清空内容">
+                <img id="clear_svg" class="btn_svg" src="./resources/clear_btn.svg">
+            </div>
+            <div id="bg_btn" class="btn" title="放大">
+                <img id="bg_svg" class="btn_svg" src="./resources/bg_btn.svg">
+            </div>
+            <div id="sm_btn" class="btn" title="缩小">
+                <img id="sm_svg" class="btn_svg" src="./resources/sm_btn.svg">
+            </div>
+        </div>
+        <!-- 视图区 -->
+        <div id="viewer">
+            <div id="view" class="viewer" v-html="msg"></div>
+        </div>
+        <div id="info">
+            字体大小:{{fontSize}}px
+            <p id="detailInfo">
+                "Have a nice day~!😉"<br>
+                -- pawx2
+            </p>
+        </div>
+        <!-- 添加看板娘 -->
+        <div id="content" class="mw-body" role="main">
+        <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+        <!-- 封面 -->
+        <div id="cover">
+            <!-- 流星背景 -->
+            <div id="stars_container">
+                <section id="stars">
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                </section>
+            </div>
+            <!-- 封面内容 -->
+            <div id="intro">
+                <img id="logo" src="./resources/cow.svg">
+                <div id="introBox">
+                    <div id="itemTitle" v-html="itemTitle"></div>
+                    <div id="itemIntro" v-html="itemIntro"></div>
+                </div>
+                <button id="enter_btn">Enter Now -></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入Cow框架 -->
+    <script src="./scripts/Cow/complier.js"></script>
+    <script src="./scripts/Cow/observer.js"></script>
+    <script src="./scripts/Cow/watcher.js"></script>
+    <script src="./scripts/Cow/dep.js"></script>
+    <script src="./scripts/Cow/cow.js"></script>
+    <!-- 引入页面脚本 -->
+    <script src="./scripts/cookie-man.js"></script>
+    <script src="./scripts/btns.js"></script>
+    <script src='./scripts/cover-btn.js'></script>
+    <script src="./scripts/data.js"></script>
+    <script src="./scripts/font-size-tip.js"></script>
+    <script src="./scripts/style.js"></script>
+    <script src="./scripts/ban_scale.js"></script>
+    <!-- 引入看板娘 -->
+    <script src="./scripts/l2d.js"></script>
+</body>
+</html>

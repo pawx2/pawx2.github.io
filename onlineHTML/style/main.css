@@ -1,0 +1,149 @@
+html {
+	display: block;
+}
+
+body {
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+	display: flex;
+	background-image: url('../resources/bg.jpg');
+	background-size: cover;
+}
+
+#btns {
+	position: absolute;
+	top: 3vh;
+	display: flex;
+}
+
+.btn {
+	height: 2vh;
+	width: 2vh;
+	padding: 0px;
+	margin: 2px;
+	border: 0px;
+	border-radius: 50vh;
+	display: flex;
+}
+
+.btn:hover {
+	cursor: pointer;
+}
+
+.btn_svg {
+	display: none;
+}
+
+#clear_btn {
+	background-color: rgba(255, 95, 90, 1);
+}
+
+#bg_btn {
+	background-color: rgba(255, 190, 46, 1);
+}
+
+#sm_btn {
+	background-color: rgba(42, 202, 68, 1);
+}
+
+#app {
+	padding: 0px;
+	margin: 0px;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: stretch;
+	width: 100%;
+	height: 100%;
+}
+
+@font-face {
+	font-family: 'mono';
+	src: url('../resources/Mono-Light.ttf') format('truetype');
+}
+
+#edit_bar {
+	height: 4%;
+}
+
+#edit {
+	width: 97%;
+	height: 95%;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	outline: none;
+	resize: none;
+	overflow: scroll;
+	font-family: "mono";
+	font-size: 15px;
+	background-color: rgba(0, 7, 32, 1);
+	color: white;
+}
+
+#editor {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 2vh;
+	padding: 1vh;
+	width: 100%;
+	height: 94vh;
+	resize: none;
+	border-radius: 2vh;
+	background-color: transparent;
+	backdrop-filter: blur(10px);
+	background-color: rgba(0, 7, 32, 1);
+	color: white;
+	outline: none;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	box-shadow: 10px 10px 10px -10px;
+}
+
+#view {
+	height: 99%;
+	width: 99%;
+	display: flex;
+	flex-direction: column;
+	overflow: scroll;
+}
+
+#viewer {
+	margin: 2vh;
+	padding: 1vh;
+	display: flex;
+	overflow: scroll;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 94vh;
+	word-break: break-all;
+	border-radius: 2vh;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	backdrop-filter: blur(7px);
+	box-shadow: 10px 10px 10px -10px;
+}
+
+#info {
+	opacity: 0;
+	position: absolute;
+	top: 42vh;
+	height: 16vh;
+	width: 40vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	border: 0px;
+	border-radius: 3vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 4vh;
+}
+
+#detailInfo {
+	font-size: 1vh;
+}

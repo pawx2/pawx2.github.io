@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="《算法设计与分析》黄宇 第二版 Chapter21 &#39;NP完全性理论初步&#39;习题解答，来自NJU算法设计与分析课程(LADA, Lectures of Algorithm Design And Analysis)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LEC-ADA-EX-Chapter21 &#39;NP完全性理论初步&#39;习题解答">
+<meta property="og:url" content="http://example.com/2022/06/06/LEC/ADA/EX/LEC-ADA-EX-Chapter21-'NP%E5%AE%8C%E5%85%A8%E6%80%A7%E7%90%86%E8%AE%BA%E5%88%9D%E6%AD%A5'%E4%B9%A0%E9%A2%98%E8%A7%A3%E7%AD%94/index.html">
+<meta property="og:site_name" content="Pawx2&#39;s Studio">
+<meta property="og:description" content="《算法设计与分析》黄宇 第二版 Chapter21 &#39;NP完全性理论初步&#39;习题解答，来自NJU算法设计与分析课程(LADA, Lectures of Algorithm Design And Analysis)">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-06T08:25:08.000Z">
+<meta property="article:modified_time" content="2022-06-06T09:41:10.000Z">
+<meta property="article:author" content="pawx2">
+<meta property="article:tag" content="LEC-ADA-EX">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/06/06/LEC/ADA/EX/LEC-ADA-EX-Chapter21-'NP%E5%AE%8C%E5%85%A8%E6%80%A7%E7%90%86%E8%AE%BA%E5%88%9D%E6%AD%A5'%E4%B9%A0%E9%A2%98%E8%A7%A3%E7%AD%94/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>LEC-ADA-EX-Chapter21 'NP完全性理论初步'习题解答 | Pawx2's Studio</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Pawx2's Studio</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">None</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/06/LEC/ADA/EX/LEC-ADA-EX-Chapter21-'NP%E5%AE%8C%E5%85%A8%E6%80%A7%E7%90%86%E8%AE%BA%E5%88%9D%E6%AD%A5'%E4%B9%A0%E9%A2%98%E8%A7%A3%E7%AD%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="pawx2">
+      <meta itemprop="description" content="Peace comes from within">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pawx2's Studio">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LEC-ADA-EX-Chapter21 'NP完全性理论初步'习题解答
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-06 16:25:08 / Modified: 17:41:10" itemprop="dateCreated datePublished" datetime="2022-06-06T16:25:08+08:00">2022-06-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LEC-ADA-EX/" itemprop="url" rel="index"><span itemprop="name">LEC-ADA-EX</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">《算法设计与分析》黄宇 第二版 Chapter21 'NP完全性理论初步'习题解答，来自NJU算法设计与分析课程(LADA, Lectures of Algorithm Design And Analysis)</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote class="blockquote-center">
+            <i class="fa fa-quote-left"></i>
+            <p>已识乾坤大，犹怜草木青 。<br>长空送鸟印，留幻与人灵。<br><strong>马一浮</strong></p>
+
+            <i class="fa fa-quote-right"></i>
+          </blockquote>
+
+<h1 id="21-1"><a href="#21-1" class="headerlink" title="21.1"></a>21.1</h1><hr>
+<ul>
+<li>某个NP完全问题为NP-Hard问题，则所有NP问题都可以多项式时间归约到该问题解决，<br>  而若该问题可在O(poly(n))解决，<br>  则所有NP问题都可以先多项式时间归约到该问题，再解决该问题，<br>  即所有NP问题都可以在多项式时间内解决，从而P&#x3D;NP；</li>
+<li>NP完全问题Q不存在多项式时间解，则Q也属于NP问题，则对于所有NP-C问题，由于为NP-Hard问题，则对于任意一个NP-C问题X，Q可以多项式时间归约到X进行解决，而Q又不存在多项式时间解，则X不存在多项式时间解，进而所有的NP完全问题都不可能在多项式时间解决；</li>
+</ul>
+<h1 id="21-2"><a href="#21-2" class="headerlink" title="21.2"></a>21.2</h1><hr>
+<p>没什么卵用🙄</p>
+<h1 id="21-3"><a href="#21-3" class="headerlink" title="21.3"></a>21.3</h1><hr>
+<ul>
+<li><p>从n个点中选取出k个点，其时间复杂度为O(n!&#x2F;((n-k)!k!)) 近似等于O(n^k)，而检验这k个点是否能构成团则时间复杂度为O(k^2)。从而可设计算法：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">nondeteCLIQUE(Graph G, int k):</span><br><span class="line">	Set S = None Set;</span><br><span class="line">	for i = 1 to k do:</span><br><span class="line">		t = genCertif();</span><br><span class="line">		if t in S then return;</span><br><span class="line">		S += &#123;t&#125;</span><br><span class="line">	for ele in S do:</span><br><span class="line">		for other nodes v in S do:</span><br><span class="line">			if not exist(edge(ele, v)) then return False</span><br><span class="line">	return Ture</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>未证明，CLIQUE算法会由k：1-&gt;n 地调用该算法，从而有O(n) + O(n^2) + … + O(n^n) !&#x3D; O(poly(n))，这里的k不再是定值，而是一个变量</p>
+</li>
+</ul>
+<h1 id="21-4"><a href="#21-4" class="headerlink" title="21.4"></a>21.4</h1><hr>
+<ul>
+<li>假定输入DNF范式由m个子句组成，每个子句里有n个条件变量，则不难构造O(poly(n))的Alg算法解决问题：<br>  遍历m个子句，如果在子句中同时出现了 a 和 !a ，那么删除该子句，最后考察剩余子句数量，如果为空返回False，否则返回True。<br>  时间复杂度为O(mn) &#x3D; O(poly(n))，可在多项式时间下解决，因而属于P问题</li>
+<li>错误在于：未严格限制归约为<strong>多项式归约</strong>，CNF范式转为DNF范式的时间复杂度就超过了O(poly(n))，从而归约引入了非多项式因素，进而未严格说明CNF-SET问题能够在O(poly(n))内解决，从而也就无法验证其为P问题，更没有P&#x3D;NP。</li>
+</ul>
+<h1 id="21-5"><a href="#21-5" class="headerlink" title="21.5"></a>21.5</h1><hr>
+<ul>
+<li><ol>
+<li>构造从 子集和问题 &#x3D;&gt; 背包问题 的归约，将传入集合作为物品重量、价值传入，而目标和S作为容量、价值下界传入。并且从<strong>形式、意义、多项式时间</strong>上说明该归约的建立；</li>
+<li>依据NP-Hard问题定义、多项式归约传递性，证明背包问题为NP-Hard问题：<br> 由 子集和问题为NP-C问题 &#x3D;&gt; 子集和问题为NP-Hard问题 &#x3D;&gt; 子集和问题可以归约到 背包问题解决 &#x3D;&gt; 背包问题为NP-Hard问题</li>
+<li>证明背包问题为NP问题；</li>
+<li>依据NP-C及上述推理，说明背包问题为NP-C问题</li>
+</ol>
+</li>
+<li><p>可构建如下DP描述及状态转移方程</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DP[i][j];	<span class="comment">// 表示考虑前i个物品，容量为j所能容纳的最大价值</span></span><br><span class="line">DP[i][j] = <span class="built_in">max</span>(DP[i<span class="number">-1</span>][j], DP[i<span class="number">-1</span>][j-weight[i]] + value[i]);	<span class="comment">//考虑选取与不选取</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DP算法时间复杂度为O(Cn), C为背包容量，以二进制形式考虑C，若表示C的二进制串长度为L，则时间复杂度为O(2^Ln)，属于<strong>伪多项式时间</strong>算法</p>
+</li>
+</ul>
+<blockquote>
+<p>21.6到21.10都为NP-C问题的判定，解题流程可有如下模板：<br>三步走：<br>①已知NP-C 归约到 待求问题（形式、意义、多项式时间）；<br>②证明待求问题为NP问题；<br>③据NP-C定义，说明待求问题为NP-C问题</p>
+</blockquote>
+<h1 id="21-6"><a href="#21-6" class="headerlink" title="21.6"></a>21.6</h1><hr>
+<p>将点视为集合，与点直接关联的边视为集合当中的元素，从而归约到最小集合覆盖问题解决。</p>
+<h1 id="21-7"><a href="#21-7" class="headerlink" title="21.7"></a>21.7</h1><hr>
+<p>构造一个完全图，而后将完全图作为母图，从图G中选定一点，向外围逐点拓展形成图S，每次拓展完后将图S作为子图，而后母图、子图传入SUBGRAPH-ISOMORPHISH的Alg中进行解决，如果返回False，则将刚刚加入的点删除，否则保留下来，最后形成团为最大团。调用n次，为多项式时间归约。</p>
+<h1 id="21-8"><a href="#21-8" class="headerlink" title="21.8"></a>21.8</h1><hr>
+<p>构造独立集问题-&gt;强独立集问题的多项式归约：<br>将G中有连接的点，全部变为一个个点对，如果出现了多余的点则直接删除。而后将新图输入到独立集问题Alg当中，返回的k即为问题解。</p>
+<h1 id="21-9"><a href="#21-9" class="headerlink" title="21.9"></a>21.9</h1><hr>
+<p>构造哈密顿回路问题-&gt;0权环问题的多项式归约：<br>对于输入图G有n个顶点，选定一个源点，而后遍历其直接关联的边，每次选择一条边，将其权设置为-(n-1)，而后其它边权均设置为1，之后输入0权环问题Alg进行求解。</p>
+<h1 id="21-10"><a href="#21-10" class="headerlink" title="21.10"></a>21.10</h1><hr>
+<p>构造有向哈密顿路径问题-&gt;EPP问题的多项式归约：<br>传入EPP问题中的区域集合为“每一个点就是一个区域”，而后可解决有向哈密顿路径问题</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LEC-ADA-EX/" rel="tag"># LEC-ADA-EX</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/06/LEC/ADA/EX/LEC-ADA-EX-Chapter20-'%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%84%E7%BA%A6'%E4%B9%A0%E9%A2%98%E8%A7%A3%E7%AD%94/" rel="prev" title="LEC-ADA-EX-Chapter20 '问题与归约'习题解答">
+      <i class="fa fa-chevron-left"></i> LEC-ADA-EX-Chapter20 '问题与归约'习题解答
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/06/LEC/ADA/EX/LEC-ADA-EX-Chapter08-'%E5%9B%BE%E7%9A%84%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86'%E4%B9%A0%E9%A2%98%E8%A7%A3%E7%AD%94/" rel="next" title="LEC-ADA-EX-Chapter08-'图的深度优先遍历'习题解答">
+      LEC-ADA-EX-Chapter08-'图的深度优先遍历'习题解答 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#21-1"><span class="nav-number">1.</span> <span class="nav-text">21.1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-2"><span class="nav-number">2.</span> <span class="nav-text">21.2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-3"><span class="nav-number">3.</span> <span class="nav-text">21.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-4"><span class="nav-number">4.</span> <span class="nav-text">21.4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-5"><span class="nav-number">5.</span> <span class="nav-text">21.5</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-6"><span class="nav-number">6.</span> <span class="nav-text">21.6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-7"><span class="nav-number">7.</span> <span class="nav-text">21.7</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-8"><span class="nav-number">8.</span> <span class="nav-text">21.8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-9"><span class="nav-number">9.</span> <span class="nav-text">21.9</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-10"><span class="nav-number">10.</span> <span class="nav-text">21.10</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="pawx2"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">pawx2</p>
+  <div class="site-description" itemprop="description">Peace comes from within</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/pawx2" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;pawx2" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/hibna" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;hibna" rel="noopener" target="_blank">Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pawx2</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":120,"height":240},"mobile":{"show":true},"log":false});</script></body>
+</html>

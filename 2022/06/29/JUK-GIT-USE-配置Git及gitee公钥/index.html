@@ -20,19 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Peace comes from within">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://example.com/tags/index.html">
+  <meta name="description" content="记录Git工具的初始配置，以及gitee使用ssh免登录操作远程仓库(github操作类似)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JUK-GIT-USE-配置Git及gitee公钥">
+<meta property="og:url" content="http://example.com/2022/06/29/JUK-GIT-USE-%E9%85%8D%E7%BD%AEGit%E5%8F%8Agitee%E5%85%AC%E9%92%A5/index.html">
 <meta property="og:site_name" content="Pawx2&#39;s Studio">
-<meta property="og:description" content="Peace comes from within">
+<meta property="og:description" content="记录Git工具的初始配置，以及gitee使用ssh免登录操作远程仓库(github操作类似)">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-26T10:25:46.000Z">
-<meta property="article:modified_time" content="2022-05-26T10:25:48.000Z">
+<meta property="article:published_time" content="2022-06-29T12:31:32.000Z">
+<meta property="article:modified_time" content="2022-06-29T12:50:51.115Z">
 <meta property="article:author" content="pawx2">
+<meta property="article:tag" content="JUK-GIT-USE">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/tags/">
+<link rel="canonical" href="http://example.com/2022/06/29/JUK-GIT-USE-%E9%85%8D%E7%BD%AEGit%E5%8F%8Agitee%E5%85%AC%E9%92%A5/">
 
 
 <script id="page-configurations">
@@ -40,13 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>tags | Pawx2's Studio
-</title>
+  <title>JUK-GIT-USE-配置Git及gitee公钥 | Pawx2's Studio</title>
   
 
 
@@ -159,43 +159,122 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="en">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/JUK-GIT-USE-%E9%85%8D%E7%BD%AEGit%E5%8F%8Agitee%E5%85%AC%E9%92%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="pawx2">
+      <meta itemprop="description" content="Peace comes from within">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pawx2's Studio">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JUK-GIT-USE-配置Git及gitee公钥
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">tags
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
 
-<div class="post-meta">
+              <time title="Created: 2022-06-29 20:31:32 / Modified: 20:50:51" itemprop="dateCreated datePublished" datetime="2022-06-29T20:31:32+08:00">2022-06-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JUK-GIT-USE/" itemprop="url" rel="index"><span itemprop="name">JUK-GIT-USE</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">记录Git工具的初始配置，以及gitee使用ssh免登录操作远程仓库(github操作类似)</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote class="blockquote-center">
+            <i class="fa fa-quote-left"></i>
+            <p>一个人撑伞的日子也一定要顺顺利利</p>
+
+            <i class="fa fa-quote-right"></i>
+          </blockquote>
+
+<p>【系统环境：Windows10】</p>
+<h1 id="Git初始配置"><a href="#Git初始配置" class="headerlink" title="Git初始配置"></a>Git初始配置</h1><p>第一次使用Git时，需要为Git配置用户名、邮箱。<br>打开一个Git Bash，输入如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;&lt;your_name&gt;&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;&lt;email@example.com&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>✨以下内容均以gitee为例讲解✨</p>
+<h1 id="生成ssh公钥，配置到gitee"><a href="#生成ssh公钥，配置到gitee" class="headerlink" title="生成ssh公钥，配置到gitee"></a>生成ssh公钥，配置到gitee</h1><p>同样打开一个Git Bash，执行如下命令，生成公钥:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;xxxxxx@xxxxx.com&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>按下三次回车，之后执行如下命令显示生成的公钥，从中端中复制出来：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_ed25519.pub</span><br></pre></td></tr></table></figure>
+
+<p>将复制出的公钥粘贴到gitee-&gt;个人设置-&gt;SSH公钥-&gt;添加公钥-&gt;公钥当中，并在标题栏为此公钥自定义一个名字。</p>
+<h1 id="为gitee添加凭据"><a href="#为gitee添加凭据" class="headerlink" title="为gitee添加凭据"></a>为gitee添加凭据</h1><p>如果仅仅只是完成上述步骤，那么在拉取&#x2F;推送gitee远程仓库时可能会出现如下对话框，导致流程终止：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Windows安全中心 Git Credential Manager Enter credentials for ‘https://gitee.com/‘</span><br></pre></td></tr></table></figure>
+
+<p>这时我们要为gitee的访问添加凭据，避免窗口弹出。</p>
+<p>首先在Win10当中打开搜索栏（热键“Win + S”可快速打开），搜索“凭据管理器”并打开。</p>
+<p>之后点击Windows凭据-&gt;添加普通凭据</p>
+<p>而后填入如下内容：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Internet地址或网站地址：	https://gitee.com/</span><br><span class="line">用户名：				  &lt;user_name&gt;</span><br><span class="line">密码：					   &lt;user_passwd&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里用户名为gitee登录使用的用户名(不是昵称)；<br>密码同样为gitee登录使用的密码；</p>
+<p>至此，应该可以使用Git顺利拉取&#x2F;推送gitee的远程仓库了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JUK-GIT-USE/" rel="tag"># JUK-GIT-USE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/27/JUK-WIN-USE-Windows%E7%B3%BB%E7%BB%9F%E6%89%B9%E5%A4%84%E7%90%86-cmd%E5%91%BD%E4%BB%A4/" rel="prev" title="JUK-WIN-USE-Windows系统批处理&cmd命令">
+      <i class="fa fa-chevron-left"></i> JUK-WIN-USE-Windows系统批处理&cmd命令
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
 
 
           </div>
@@ -246,6 +325,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">Git初始配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90ssh%E5%85%AC%E9%92%A5%EF%BC%8C%E9%85%8D%E7%BD%AE%E5%88%B0gitee"><span class="nav-number">2.</span> <span class="nav-text">生成ssh公钥，配置到gitee</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BAgitee%E6%B7%BB%E5%8A%A0%E5%87%AD%E6%8D%AE"><span class="nav-number">3.</span> <span class="nav-text">为gitee添加凭据</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -1168,7 +1168,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f438ff;
+  background: #06ff11;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1318,7 +1318,7 @@ pre .javascript .function {
   white-space: nowrap;
 }
 .post-toc .nav .nav-child {
-  display: block; /*hexo-config('toc.expand_all') ? block : none;*/
+  display: none;
 }
 .post-toc .nav .active > .nav-child {
   display: block;

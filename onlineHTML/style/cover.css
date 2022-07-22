@@ -1,0 +1,105 @@
+#cover {
+    position: absolute;
+    background-color: rgb(40, 40, 40);
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: 5s;
+}
+
+#intro {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#introBox {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@font-face {
+	font-family: 'mono';
+	src: url('../resources/Mono-Light.ttf') format('truetype');
+}
+
+#itemTitle, #itemIntro {
+    text-align: center;
+    color: white;
+    font-family: monospace;
+}
+
+#itemTitle {
+    margin-top: 3vh;
+    font-size: 5vh;
+    font-weight: 1000;
+    font-family: 'mono';
+}
+
+#itemIntro {
+    margin-bottom: 3vh;
+    font-size: 2vh;
+    font-family: 'mono';
+}
+
+/* 打字机动画 */
+#itemTitle {
+    width: 0px;
+    border-right: 2px solid white;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#itemTitle {
+    animation: grow 2s steps(20) 1s normal both,
+    blink 500ms steps(20) infinite normal;
+}
+
+@keyframes grow {
+    format {
+        width: 0;
+    } to {
+        width: 49vh;
+    }
+}
+
+@keyframes blink {
+    from {
+        border-right-color: white;
+    } to {
+        border-right-color: transparent;
+    }
+}
+
+
+#enter_btn {
+    height: 7vh;
+    width: 25vh;
+    border: 0px;
+    border-radius: 5vh;
+    transition: 0.2s;
+    font-family: 'mono';
+}
+
+#enter_btn:hover {
+    cursor: pointer;
+    background-color: rgb(99, 95, 95);
+    color: white;
+}
